@@ -5,7 +5,7 @@ from .player import Player
 from . import pickups
 
 import os
-# os.system('cls' if os.name == 'nt' else 'clear')
+os.system('cls' if os.name == 'nt' else 'clear')
 
 player = Player(17, 5)   #  x= 1-34 , y= 1-10
 score = 0
@@ -41,7 +41,7 @@ def move_player (command,score):
             yi= -1
         else:
             yi= 1
-    # print ('X:',xi ,'Y:',yi)
+    print ('X:',xi ,'Y:',yi)
 
     maybe_item = g.get(player.pos_x + xi, player.pos_y+yi)
     player.move(xi, yi)
@@ -70,10 +70,14 @@ while not command.casefold() in ["q", "x"]:
     print('Location X:', player.pos_x )
     print('Location Y :', player.pos_y )
 
-    # if (1 < player.pos_x <34) and (1 < player.pos_y <10) :
-    #     print('OK')
-    score = move_player(command, score)
+    if (1 < player.pos_x <34) and (1 < player.pos_y <10) :
+        print('OK')
+        score = move_player(command, score)
         # print(score)
+    else:
+        print('NOtOK')
+        score = move_player('No', score)
+
 
 
 
