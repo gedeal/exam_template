@@ -22,12 +22,14 @@ Tips! Du kan spara denna rad som en "run configuration" i PyCharm.
 ## Examination
 ### Programmering med Python
 
-Du ska lösa uppgiften självständigt. När du tar hjälp av AI, eller diskuterar med andra studenter, ska du se till att du förstår vad koden gör.
+Du ska lösa uppgiften självständigt. När du tar hjälp av AI, eller diskuterar med andra studenter, 
+ska du se till att du förstår vad koden gör.
 
 
 
 ## Uppgift
-Din uppgift är att bygga vidare på spelet "Fruit loop". Spelet kan spelas direkt i terminalen, och går ut på att samla frukter.
+Din uppgift är att bygga vidare på spelet "Fruit loop". 
+Spelet kan spelas direkt i terminalen, och går ut på att samla frukter.
 
 Börja med att läsa igenom hela uppgiften, sedan hittar du länk till ett kodprojekt längre ner.
 
@@ -43,7 +45,8 @@ Börja med att läsa igenom hela uppgiften, sedan hittar du länk till ett kodpr
 - E) Inventory - alla saker som man plockar upp ska sparas i en lista.
 - F) Nytt kommando: "i", skriver ut innehållet i spelarens inventory.
 - G) The floor is lava - för varje steg man går ska man tappa 1 poäng.
-- H) Använd for-loopar för att skapa flera, sammanhängande väggar på kartan. Se till att det inte skapas några rum som man inte kan komma in i. Gör detta i filen grid.py.
+- H) Använd for-loopar för att skapa flera, sammanhängande väggar på kartan. Se till att det inte skapas 
+-    några rum som man inte kan komma in i. Gör detta i filen grid.py.
 
 ### Version 2 - nice to have
 - I) Fällor - introducera valfri fälla till spelplanen. Om man går på en ruta med en fälla ska man förlora 10 poäng. Fällan ska ligga kvar så att man kan falla i den flera gånger.
