@@ -103,5 +103,5 @@ while not command.casefold() in ["q", "x"]:
     # print ('\t\t\tScore:',score)
 
 # Hit kommer vi när while-loopen slutar
-# print("\t _/\\_  Thank you for playing! _/\\_  \n")
+
 print("\n꧁∙·▫ₒₒ▫꧁   Thank you for playing!  ꧂▫ₒₒ▫·∙꧂\n")
