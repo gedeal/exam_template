@@ -157,10 +157,8 @@ while not command.casefold() in ["q", "x"]:
 
     # print('Location X:', player.pos_x , '  Location Y :', player.pos_y )
     score=move_player(command, score)
-
-
     # print ('\t\t\tScore:',score)
 
 # Hit kommer vi när while-loopen slutar
 # print("\t _/\\_  Thank you for playing! _/\\_  \n")
-print("\n꧁∙·▫ₒₒ▫꧁   Fruit basket for the brave  ꧂▫ₒₒ▫·∙꧂\n")
+print("\n꧁∙·▫ₒₒ▫꧁   Thank you for playing!  ꧂▫ₒₒ▫·∙꧂\n")
