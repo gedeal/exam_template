@@ -3,6 +3,7 @@ from operator import length_hint
 from traceback import print_tb
 
 from .grid import Grid
+from .move_commands import show_score, inventory, showlist, print_status
 from .pickups import Item
 from .player import Player
 from . import pickups
@@ -29,39 +30,6 @@ pickups.randomize(g)
 
 # TODO: flytta denna till en annan fil
 
-def show_score():           # Show score now
-    # print('Your score is : ', score)
-    print(f"** Your total score is: \n**      {score} points.")
-
-
-
-def inventory(fruit, pos_x,pos_y):
-# - E) Inventory - alla saker som man plockar upp ska sparas i en lista.
-    fruit =[fruit, pos_x,pos_y]
-    fruit_list.append(fruit)
-
-
-
-def showlist():
-# - F) Nytt kommando: "i", skriver ut innehållet i spelarens inventory.
-
-    mylist=len(fruit_list)
-    # print(mylist)
-    if mylist==0:
-        print("  ** You have not collect fruits yet  :-(")
-    else:
-        print(f"** Fruit basket ({mylist}) **")
-        for lista in fruit_list:
-            item = fruit_list.index(lista)+1
-            print(f"   [{item}]  {lista[0]} ")
-
-
-def print_status(game_grid):
-    """Visa spelvärlden och antal poäng."""
-    # print("\n--------------------------------------")
-    print(game_grid)
-    # print("\n--------------------------------------")
-
 def move_point(score, xi, yi):
     maybe_item = g.get(player.pos_x + xi, player.pos_y+yi)
     # newscore = score
@@ -87,7 +55,7 @@ def move_point(score, xi, yi):
             print('********************************************')
             #g.set(player.pos_x, player.pos_y, g.empty)
             g.clear(player.pos_x, player.pos_y)
-            inventory(maybe_item.name, player.pos_x, player.pos_y)
+            inventory(fruit_list, maybe_item.name, player.pos_x, player.pos_y)
 
     return score
 
@@ -96,10 +64,10 @@ def move_player (command,score):
     yi = 0
 
     if command=='u':
-        show_score()
+        show_score(score)
 
     if command=='i':
-        showlist()
+        showlist(fruit_list)
 
     if command=='a' or command=='d':
         if command=='a':
@@ -116,31 +84,6 @@ def move_player (command,score):
         score=move_point(score, xi, yi)
 
     return score
-
-    # print ('X:',xi ,'Y:',yi)
-
-    # maybe_item = g.get(player.pos_x + xi, player.pos_y+yi)
-    #
-    # internwall = "\x1b[41m■\x1b[0m"
-    # if maybe_item == internwall:
-    #     print("**  Can not move - there's a wall",internwall)
-    #     player.move(0,0)
-    # else:
-    #     # print('OK', maybe_item)
-    #     player.move(xi, yi)
-    #     # G) The floor is lava - för varje steg man går ska man tappa 1 poäng.
-    #     score = score-1
-    #     if isinstance(maybe_item, pickups.Item):
-    #         # we found something
-    #         score += maybe_item.value
-    #         print('\n********************************************')
-    #         print(f"   You found a {maybe_item.name}, +{maybe_item.value} points.")
-    #         print('********************************************')
-    #         #g.set(player.pos_x, player.pos_y, g.empty)
-    #         g.clear(player.pos_x, player.pos_y)
-    #         inventory(maybe_item.name, player.pos_x, player.pos_y)
-    #
-    # return score
 
 # -------------------------------------------------------------STARTING-----------------
 command = ""
