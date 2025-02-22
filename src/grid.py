@@ -9,9 +9,7 @@ class Grid:
     wall  = "\x1b[45m■\x1b[0m"   # Tecken för en ogenomtränglig vägg
 # https: // www.fileformat.info / info / emoji / list.htm
     internwall = "\x1b[41m■\x1b[0m"   # Tecken för en intern vägg
-
     # internwall = "\u2139"   # Tecken för en intern vägg
-
 
     def __init__(self):
         """Skapa ett objekt av klassen Grid"""
@@ -43,7 +41,6 @@ class Grid:
             for x in range(len(row)):
                 if x == self.player.pos_x and y == self.player.pos_y:
                     xs += "\x1b[104m@\x1b[0m"
-
                     # xs += "\u26F5"
                 else:
                     xs += str(row[x])

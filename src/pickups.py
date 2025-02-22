@@ -4,7 +4,8 @@ class Item:
 
 # D) Fruktsallad - alla frukter ska vara värda 20 poäng i stället för 10.
 #     def __init__(self, name, value=10, symbol="#"):     # Change value
-    def __init__(self, name, value=20, symbol="\x1b[92m#\x1b[0m"):     # Change value
+#     def __init__(self, name, value=20, symbol="\x1b[92m#\x1b[0m"):     # Change value
+    def __init__(self, name, value=20, symbol="#"):     # Change value
         self.name = name
         self.value = value
         self.symbol = symbol
