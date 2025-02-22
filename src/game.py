@@ -6,6 +6,7 @@ from .grid import Grid
 from .player import Player
 from . import pickups
 
+
 import os
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -16,16 +17,18 @@ fruit_list = []
 g = Grid()
 g.set_player(player)
 g.make_walls()
+g.intern_walls()
+
+
 pickups.randomize(g)
+
 
 
 # TODO: flytta denna till en annan fil
 
-
-
 def show_score():           # Show score now
     # print('Your score is : ', score)
-    print(f"** Your total score is:  {score} points.")
+    print(f"** Your total score is: \n**      {score} points.")
 
 
 
@@ -38,11 +41,16 @@ def inventory(fruit, pos_x,pos_y):
 
 def showlist():
 # - F) Nytt kommando: "i", skriver ut innehållet i spelarens inventory.
-    print('LIST:')
-    # mylist=len(fruit_list)
-    for lista in fruit_list:
-        # print (lista)
-        print(fruit_list.index(lista),': ', lista[0])
+
+    mylist=len(fruit_list)
+    # print(mylist)
+    if mylist==0:
+        print("  ** You have not collect fruits yet  :-(")
+    else:
+        print(f"** Fruit basket ({mylist}) **")
+        for lista in fruit_list:
+            item = fruit_list.index(lista)+1
+            print(f"   [{item}]  {lista[0]} ")
 
 
 def print_status(game_grid):
@@ -56,7 +64,7 @@ def move_player (command,score):
     xi = 0
     yi = 0
 
-    if command=='t':
+    if command=='u':
         show_score()
 
     if command=='i':
@@ -90,7 +98,7 @@ def move_player (command,score):
         # we found something
         score += maybe_item.value
         print('\n********************************************')
-        print(f"\tYou found a {maybe_item.name}, +{maybe_item.value} points.")
+        print(f"   You found a {maybe_item.name}, +{maybe_item.value} points.")
         print('********************************************')
         #g.set(player.pos_x, player.pos_y, g.empty)
         g.clear(player.pos_x, player.pos_y)
@@ -102,13 +110,18 @@ def move_player (command,score):
 
 command = ""
 # Loopa tills användaren trycker Q eller X.
+print("Use 'i' to show the fruit basket")
+print("Use 'u' to show the points ")
+
+
+
 while not command.casefold() in ["q", "x"]:
     print_status(g)
 
     command = input("Use WASD to move, Q/X to quit. ")
     command = command.casefold()[:1]
 
-    print('Location X:', player.pos_x , ' - Location Y :', player.pos_y )
+    # print('Location X:', player.pos_x , ' - Location Y :', player.pos_y )
 
     if (0 < player.pos_x <35) and (0 < player.pos_y <11) :
         # print('OK')
