@@ -55,7 +55,8 @@ Börja med att läsa igenom hela uppgiften, sedan hittar du länk till ett kodpr
 - J) Spade - en ny sak man kan plocka upp. När man går in i en vägg nästa gång, förbrukas spaden för att ta bort väggen.
 - K) Nycklar och kistor - slumpa minst en nyckel och lika många kistor på spelplanen. 
      När man går på en ruta med en nyckel plockar man upp den i sitt inventory.  
-     Om man kommer till en kista och har minst en nyckel, öppnar man kistan och plockar upp en skatt som är värd 100 poäng. 
+     Om man kommer till en kista och har minst en nyckel, öppnar man kistan och plockar upp en skatt som 
+     är värd 100 poäng. 
      (Nyckeln är förbrukad.)
 - L) Bördig jord - efter varje 25:e drag skapas en ny frukt/grönsak någonstans på kartan.
 - M) Exit - slumpa ett "E" på kartan. När man har plockat upp alla ursprungliga saker, kan man gå till 

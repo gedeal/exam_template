@@ -1,12 +1,14 @@
 
 
-def show_score(score):           # Show score now
-    # print('Your score is : ', score)
-    print(f"** Your total score is: \n**      {score} points.")
+def show_score(score,key):           # Show score now
+    # print("Your score is : ", score)
+    print("********************************************")
+    print(f"** Your total score is: {score} points.    ")
+    print(f"** Nr of keys you have: {key}              ")
+    print("********************************************")
 
 
-
-def inventory(fruit_list, fruit, pos_x,pos_y,key, theasure):
+def inventory(fruit_list, fruit, pos_x,pos_y,key, treasure):
 # - E) Inventory - alla saker som man plockar upp ska sparas i en lista.
     fruit =[fruit, pos_x,pos_y]
     fruit_list.append(fruit)

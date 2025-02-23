@@ -1,3 +1,13 @@
+# from src.game import treasuricon, keyicon, trap_a, trap_b
+# TODO - icons ---------
+trap_a = "\x1b[41mA\x1b[0m"
+trap_b = "\x1b[42mB\x1b[0m"
+internwall = "\x1b[41m■\x1b[0m"
+wall = "\x1b[45m■\x1b[0m"
+
+treasuricon = "\x1b[91mT\x1b[0m"
+keyicon = "\x1b[94mK\x1b[0m"
+
 
 class Item:
     """Representerar saker man kan plocka upp."""
@@ -31,14 +41,13 @@ def randomize(grid):
 
 def randomtrap(grid):
     # Put a Trap
-    a= "\x1b[43mA\x1b[0m"
-    b= "\x1b[42mB\x1b[0m"
+
     while True:
         # slumpa en position tills vi hittar en som är ledig
         x = grid.get_random_x()
         y = grid.get_random_y()
         if grid.is_empty(x, y):
-            grid.set(x, y, a)
+            grid.set(x, y, trap_a)
             break  # avbryt while-loopen, fortsätt med nästa varv i for-loopen
 
     # while True:
@@ -46,7 +55,7 @@ def randomtrap(grid):
     #     x = grid.get_random_x()
     #     y = grid.get_random_y()
     #     if grid.is_empty(x, y):
-    #         grid.set(x, y, b)
+    #         grid.set(x, y, trap_b)
     #         break  # avbryt while-loopen, fortsätt med nästa varv i for-loopen
 
     return None
@@ -55,29 +64,25 @@ def randomtrap(grid):
 #K) Nycklar och kistor - slumpa minst en nyckel och lika många kistor på spelplanen.
 def randomkey(grid):
     # Put a Key
-    k = "\x1b[94mK\x1b[0m"
+
     for i in range(2):
-        print(i)
         while True:
             # slumpa en position tills vi hittar en som är ledig
             x = grid.get_random_x()
             y = grid.get_random_y()
             if grid.is_empty(x, y):
-                grid.set(x, y, k)
+                grid.set(x, y, keyicon)
                 break  # avbryt while-loopen, fortsätt med nästa varv i for-loopen
     return None
 
-def randomthreasure(grid):
-    # Put a threasure
-    # k = "\x1b[43mT\x1b[0m"
-    t="\x1b[91mT\x1b[0m"
+def randomtreasure(grid):
+    # Put a treasure
     for i in range(2):
-        print(i)
         while True:
             # slumpa en position tills vi hittar en som är ledig
             x = grid.get_random_x()
             y = grid.get_random_y()
             if grid.is_empty(x, y):
-                grid.set(x, y, t)
+                grid.set(x, y, treasuricon)
                 break  # avbryt while-loopen, fortsätt med nästa varv i for-loopen
     return None
