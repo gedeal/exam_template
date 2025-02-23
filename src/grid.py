@@ -12,11 +12,25 @@ class Grid:
     # internwall = "\u2139"   # Tecken för en intern vägg
 
     def __init__(self):
-        """Skapa ett objekt av klassen Grid"""
-        # Spelplanen lagras i en lista av listor. Vi använder "list comprehension" för att sätta tecknet för "empty" på varje plats på spelplanen.
+        """Skapa ett objekt av klassen Grid
+           Spelplanen lagras i en lista av listor. Vi använder "list comprehension"
+           för att sätta tecknet för "empty" på varje plats på spelplanen."""
         self.data = [[self.empty for y in range(self.width)] for z in range(
             self.height)]
 
+    def __str__(self):
+        """Gör så att vi kan skriva ut spelplanen med print(grid)"""
+        xs = ""
+        for y in range(len(self.data)):
+            row = self.data[y]
+            for x in range(len(row)):
+                if x == self.player.pos_x and y == self.player.pos_y:
+                    xs += "\x1b[104m@\x1b[0m"
+                    # xs += "\u26F5"
+                else:
+                    xs += str(row[x])
+            xs += "\n"
+        return xs
 
     def get(self, x, y):
         """Hämta det som finns på en viss position"""
@@ -33,21 +47,6 @@ class Grid:
         """Ta bort item från position"""
         self.set(x, y, self.empty)
 
-    def __str__(self):
-        """Gör så att vi kan skriva ut spelplanen med print(grid)"""
-        xs = ""
-        for y in range(len(self.data)):
-            row = self.data[y]
-            for x in range(len(row)):
-                if x == self.player.pos_x and y == self.player.pos_y:
-                    xs += "\x1b[104m@\x1b[0m"
-                    # xs += "\u26F5"
-                else:
-                    xs += str(row[x])
-            xs += "\n"
-        return xs
-
-
     def make_walls(self):
         """Skapa väggar runt hela spelplanen"""
         for i in range(self.height):
@@ -58,15 +57,14 @@ class Grid:
             self.set(j, 0, self.wall)
             self.set(j, self.height - 1, self.wall)
 
-
     # Används i filen pickups.py
     def get_random_x(self):
         """Slumpa en x-position på spelplanen"""
-        return random.randint(0, self.width-1)
+        return random.randint(1, self.width-1)
 
     def get_random_y(self):
         """Slumpa en y-position på spelplanen"""
-        return random.randint(0, self.height-1)
+        return random.randint(1, self.height-1)
 
 
     def is_empty(self, x, y):
@@ -76,21 +74,23 @@ class Grid:
 
     def intern_walls(self):
     # H) Använd for -loopar för att skapa flera, sammanhängande väggar på kartan.
-
-    #Horizontal
+        #Horizontal
         for i in range(4):
             self.set(6, i+3, self.internwall)
             # self.set(self.width - 1, i, self.internwall)
-
         for i in range(5):
             self.set(27, i+5, self.internwall)
             # self.set(self.width - 1, i, self.internwall)
 
-    #Vertical
+    # Test
+        # for i in range(12):
+        #     self.set(1, i, self.internwall)
+        #     # self.set(self.width - 1, i, self.internwall)
+
+        #Vertical
         for i in range(6):
             self.set(i+20, 3, self.internwall)
             # self.set(self.width - 1, i, self.internwall)
-
         for i in range(3):
             self.set(i+ 10, 8, self.internwall)
             # self.set(self.width - 1, i, self.internwall)

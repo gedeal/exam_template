@@ -26,18 +26,29 @@ prGreen("Geeks")
 prRed("For")
 prGreen("Geeks")
 
-print("This is \x1b[31m GERSON1 \x1b[0m text")
-print("This is \x1b[41m GERSON2 \x1b[0m background")
-print("This is \x1b[91mBRIGHT  GERSON3 \x1b[0m text")
-print("This is \x1b[101mBRIGHT  GERSON4 \x1b[0m background")
+print("This is \x1b[31m 31 \x1b[0m text")
+print("This is \x1b[32m 32 \x1b[0m text")
+print("This is \x1b[33m 33 \x1b[0m text")
+print("This is \x1b[34m 34 \x1b[0m text")
+print("This is \x1b[35m 35 \x1b[0m text")
 
+print("This is \x1b[41m 41 \x1b[0m background")
+print("This is \x1b[91m 91 \x1b[0m text")
+print("This is \x1b[101m 101 \x1b[0m background")
+print("This is \x1b[102m 102 \x1b[0m background")
+print("This is \x1b[103m 103 \x1b[0m background")
+print("This is \x1b[104m 104 \x1b[0m background")
+print("This is \x1b[105m 105 \x1b[0m background")
+print("This is \x1b[106m 106 \x1b[0m background")
+print("This is \x1b[107m 107 \x1b[0m background")
+print("This is \x1b[108m 108 \x1b[0m background")
 
 print("This is \x1b[41m 41 \x1b[0m background") #green
 print("This is \x1b[42m 42 \x1b[0m background") #green
 print("This is \x1b[43m 43 \x1b[0m background") #yellow
 print("This is \x1b[44m 44 \x1b[0m background") #blue
 print("This is \x1b[45m 45 \x1b[0m background")  #purple
-print("This is \x1b[46m 46 \x1b[0m background")  #purple
+print("This is \x1b[46m 46 \x1b[0m background")  #lightgreen
 
 
 

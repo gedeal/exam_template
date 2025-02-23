@@ -6,7 +6,7 @@ def show_score(score):           # Show score now
 
 
 
-def inventory(fruit_list, fruit, pos_x,pos_y):
+def inventory(fruit_list, fruit, pos_x,pos_y,key, theasure):
 # - E) Inventory - alla saker som man plockar upp ska sparas i en lista.
     fruit =[fruit, pos_x,pos_y]
     fruit_list.append(fruit)
