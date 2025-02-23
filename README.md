@@ -62,12 +62,15 @@ Börja med att läsa igenom hela uppgiften, sedan hittar du länk till ett kodpr
 - M) Exit - slumpa ett "E" på kartan. När man har plockat upp alla ursprungliga saker, kan man gå till 
      exit för att vinna spelet. Men innan man tagit upp alla har inte Exit någon effekt.
 - N) Jump - om man skriver ett "J" innan något av "WASD", ska spelaren hoppa över en ruta. 
-     Man förflyttar sig alltså två steg, men kan förstås bara plocka upp eller interagera med saker där man landar. Hoppar man in i en vägg blir det samma effekt som om man hade gått ett steg på vanligt sätt.
+     Man förflyttar sig alltså två steg, men kan förstås bara plocka upp eller interagera med saker där man landar. 
+     Hoppar man in i en vägg blir det samma effekt som om man hade gått ett steg på vanligt sätt.
 
 ### Version 3 - extra utmaning
 - O) Grace period - efter man har tagit plockat upp något, kan man gå 5 steg utan att det dras några poäng.
 - P) AI-fiender - placera 1-3 fiender på kartan. För varje steg spelaren tar ska ska varje fiende ha en slumpmässig 
-     chans att flytta sig ett steg närmare spelaren. Minus 20 poäng om en fiende hinner ifatt. (Inte diagonalt, dvs. samma rörelsemönster som spelaren. Fienderna ska vara lite "långsammare" så att det är lagom svårt att undvika dem.)
+     chans att flytta sig ett steg närmare spelaren. Minus 20 poäng om en fiende hinner ifatt. (Inte diagonalt, 
+     dvs. samma rörelsemönster som spelaren. Fienderna ska vara lite "långsammare" så att det är lagom svårt att
+     undvika dem.)
 - Q) Tryck "B" för att placera en bomb. Efter 3 drag smäller bomben och förstör allt på sin ruta och de åtta som 
      gränsar till den. (fällor, väggar, m.m.) Om spelaren är kvar förlorar man poäng.
 - R) Ett nytt kommando ("T" för trap) för att desarmera fällor.

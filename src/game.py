@@ -58,9 +58,10 @@ def move_point(score, xi, yi, shovel, key,treasure):
 
     if maybe_item == internwall:
         if shovel==0:
-            print("********************************************")
-            print(f"*   Can't move - there's an intern wall {internwall}  *")
-            print("********************************************")
+            # print("********************************************")
+            # print(f"*   Can't move - there's an intern wall {internwall}  *")
+            # print("********************************************")
+            g.set(37, 9, f" * Can't move - there's an intern wall {internwall} ")
             player.move(0,0)
         else:
             print(">> >> >>  Breaking the wall")
@@ -72,9 +73,11 @@ def move_point(score, xi, yi, shovel, key,treasure):
             print("********************************************")
 
     elif maybe_item == wall:
-        print("********************************************")
-        print(f"*   Can't move - there's an intern wall {wall}  *")
-        print("********************************************")
+        # print("********************************************")
+        # print(f"*   Can't move - there's an extern wall {wall}  *")
+        # print("********************************************")
+        g.set(37, 9, f" * Can't move - there's an extern wall {wall} ")
+
         player.move(0, 0)
 
     elif maybe_item == trap_a:
@@ -107,14 +110,14 @@ def move_point(score, xi, yi, shovel, key,treasure):
 
         if key >0 :
             print("********************************************")
-            print("*  You found a treasure :-) +100 points    *")
+            print("* You found a treasure :-)  +100 points    *")
 
             # erase treasure  and save info
             treasure += 1
             score +=100
             key -=1
             if key > 0:
-                print('* Nr Keys :', key,"                    *")
+                print('* Nr Keys :', key,"                         *")
             else:
                 print("*  You have no more keys  :-(              *")
             print("********************************************")
@@ -144,6 +147,7 @@ def move_point(score, xi, yi, shovel, key,treasure):
 def move_player (command, score, shovel, key, treasure ):
     xi = 0
     yi = 0
+    g.set(37, 9, f"")
 
     if command=="u":
         show_score(score,key)
@@ -184,13 +188,14 @@ def move_player (command, score, shovel, key, treasure ):
 command = ""
 # Loopa tills användaren trycker Q eller X.
 print("\n꧁∙·▫ₒₒ▫꧁   Fruit basket for the brave  ꧂▫ₒₒ▫·∙꧂\n")
-print("\t=>  Use 'i' to show your fruit basket")
-print("\t=>  Use 'u' to show your points ")
+# print("\t=>  Use 'i' to show your fruit basket")
+# print("\t=>  Use 'u' to show your points ")
 
 while not command.casefold() in ["q", "x"]:
     print_status(g)
 
-    command = input("Use WASD to move, Q/X to quit. ")
+    # command = input("Use WASD to move, Q/X to quit. ")
+    command = input("----------------------------------->> ")
     command = command.casefold()[:1]
 
     # print("Location X:", player.pos_x , "  Location Y :", player.pos_y )

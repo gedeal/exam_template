@@ -6,6 +6,7 @@ class Grid:
     width = 36
     height = 12
     empty = "."  # Tecken för en tom ruta
+    blank = "x"
     internwall = "\x1b[41m■\x1b[0m"
     wall = "\x1b[45m■\x1b[0m"
     gamer = "\x1b[104m@\x1b[0m"
@@ -16,8 +17,21 @@ class Grid:
         """Skapa ett objekt av klassen Grid
            Spelplanen lagras i en lista av listor. Vi använder "list comprehension"
            för att sätta tecknet för "empty" på varje plats på spelplanen."""
-        self.data = [[self.empty for y in range(self.width)] for z in range(
-            self.height)]
+        self.data = [[self.empty for y in range(self.width+30)] for z in range(self.height)]
+
+        # TODO - show message
+        for i in range (36,66):
+            for p in range (12):
+                self.set(i, p, '')
+
+    # Todo - Info messages :
+        self.set(37,0,"  Commands:")
+        self.set(38,2," 'i' to show your fruit basket")
+        self.set(38,3," 'u' to show your points")
+
+        self.set(38,11,"  Use WASD to move, Q/X to quit.")
+
+
 
     def __str__(self):
         """Gör så att vi kan skriva ut spelplanen med print(grid)"""

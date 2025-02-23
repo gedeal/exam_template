@@ -3,8 +3,11 @@
 def show_score(score,key):           # Show score now
     # print("Your score is : ", score)
     print("********************************************")
-    print(f"** Your total score is: {score} points.    ")
-    print(f"** Nr of keys you have: {key}              ")
+    print(f"* Your total score is: {score} points     ")
+    if key ==0:
+        print("* You have no key                          *")
+    else:
+        print(f"* Nr of keys you have: {key}              ")
     print("********************************************")
 
 
@@ -20,7 +23,9 @@ def showlist(fruit_list):
     mylist=len(fruit_list)
     # print(mylist)
     if mylist==0:
-        print("  ** You have not collect fruits yet  :-(")
+        print("********************************************")
+        print("* You have not collect fruits yet  :-(     *")
+        print("********************************************")
     else:
         print(f"** Fruit basket ({mylist}) **")
         for lista in fruit_list:
