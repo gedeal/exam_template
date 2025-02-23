@@ -25,9 +25,11 @@ class Grid:
                 self.set(i, p, '')
 
     # Todo - Info messages :
-        self.set(37,0,"  Commands:")
-        self.set(38,2," 'i' to show your fruit basket")
-        self.set(38,3," 'u' to show your points")
+        self.set(37,0,"--Commands --------")
+        self.set(38,1," 'i'   Fruit basket")
+        self.set(38,2," 'u'   Points")
+        self.set(38,3," 'k'   Shovel")
+        self.set(38,4," 'q/x' Quit")
 
         self.set(38,11,"  Use WASD to move, Q/X to quit.")
 
