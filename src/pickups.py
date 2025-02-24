@@ -1,7 +1,6 @@
 # from src.game import treasuricon, keyicon, trap_a, trap_b
 import random
 
-
 trap_a = "\x1b[41mA\x1b[0m"
 trap_b = "\x1b[42mB\x1b[0m"
 internwall = "\x1b[41m■\x1b[0m"
@@ -9,7 +8,7 @@ wall = "\x1b[45m■\x1b[0m"
 
 treasuricon = "\x1b[91mT\x1b[0m"
 keyicon = "\x1b[94mK\x1b[0m"
-
+exit_door = "\x1b[42mE\x1b[0m"
 
 class Item:
     """Representerar saker man kan plocka upp."""
@@ -49,6 +48,15 @@ def new_fruit(grid):
         y = grid.get_random_y()
         if grid.is_empty(x, y):
             grid.set(x, y, random_fruit)
+            break  # avbryt while-loopen, fortsätt med nästa varv i for-loopen
+    return None
+
+def exit_game(grid):
+    while True:
+        x = grid.get_random_x()
+        y = grid.get_random_y()
+        if grid.is_empty(x, y):
+            grid.set(x, y, exit_door)
             break  # avbryt while-loopen, fortsätt med nästa varv i for-loopen
     return None
 

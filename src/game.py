@@ -20,6 +20,9 @@ shovel = 0
 key = 0
 treasure = 0
 steps = 0
+total_fruits=2  # Total fruits in the grid
+total_fruits_in_basket=0  # total fruits collected
+
 
 # TODO - Icons --------------------
 trap_a = "\x1b[41mA\x1b[0m"
@@ -29,6 +32,8 @@ wall = "\x1b[45m■\x1b[0m"
 
 treasuricon = "\x1b[91mT\x1b[0m"
 keyicon = "\x1b[94mK\x1b[0m"
+exit_door = "\x1b[42mE\x1b[0m"
+
 
 
 # ------------------------
@@ -45,6 +50,9 @@ pickups.randomtrap(g)
 pickups.randomkey(g)
 pickups.randomtreasure(g)
 
+pickups.exit_game(g)
+
+
 g.set(50, 3, ' [ Off ]')  # Start with no keys
 g.set(50, 6, 0)  # clear Key
 g.set(50, 7, 0)  # clear points
@@ -53,7 +61,9 @@ g.set(50, 7, 0)  # clear points
 
 # TODO: flytta denna till en annan fil ???
 
-def move_point(score, xi, yi, shovel, key,treasure):
+def move_point(score, xi, yi, shovel, key, treasure,total_fruits_in_basket):
+    # global total_fruits
+
     maybe_item = g.get(player.pos_x + xi, player.pos_y+yi)
 
     if shovel==1:
@@ -112,11 +122,17 @@ def move_point(score, xi, yi, shovel, key,treasure):
         else:
             g.set(37, 9, f" * You have no keys for this treasure :-(  **")
 
+    elif maybe_item == exit_door and  total_fruits == total_fruits_in_basket:
+            total_fruits_in_basket = 'exit'
+
     else:
         # print("OK", maybe_item)
         player.move(xi, yi)
         # G) The floor is lava - för varje steg man går ska man tappa 1 poäng.
         score = score-1
+        # if total_fruits_in_basket == 'exit':
+        #     var = None
+        # elif isinstance(maybe_item, pickups.Item):
         if isinstance(maybe_item, pickups.Item):
             # we found something
             score += maybe_item.value
@@ -125,19 +141,21 @@ def move_point(score, xi, yi, shovel, key,treasure):
             #g.set(player.pos_x, player.pos_y, g.empty)
             g.clear(player.pos_x, player.pos_y)
             inventory(fruit_list, maybe_item.name, player.pos_x, player.pos_y,key,treasure)
-
+            # count total fruits found
+            total_fruits_in_basket += 1
 
     g.set(50, 7, score)   # show points
-    return score,shovel, key, treasure
+    return score,shovel, key, treasure, total_fruits_in_basket
 
-def move_player (command, score, shovel, key, treasure ):
+
+
+def move_player (command, score, shovel, key, treasure,total_fruits_in_basket):
     xi = 0
     yi = 0
-    g.set(37, 9, f"")
+    # g.set(38, 12, "--------------------------------------------")
 
-
-    if command=="u":
-        show_score(score,key)
+    # if command=="u":
+    #     show_score(score,key)
 
     if command=="i":
         showlist(fruit_list)
@@ -147,28 +165,37 @@ def move_player (command, score, shovel, key, treasure ):
             xi= -1
         else:
             xi= 1
-        temp=move_point(score,xi,yi,shovel,key,treasure)
+        temp=move_point(score,xi,yi,shovel,key,treasure,total_fruits_in_basket)
         score=temp[0]
         shovel=temp[1]
         key=temp[2]
         treasure=temp[3]
+        total_fruits_in_basket = temp[4]
 
     if command=="w" or command=="s":
         if command=="w":
             yi= -1
         else:
             yi= 1
-        temp=move_point(score,xi,yi,shovel,key,treasure)
+        temp=move_point(score,xi,yi,shovel,key,treasure,total_fruits_in_basket)
         score = temp[0]
         shovel = temp[1]
         key = temp[2]
         treasure = temp[3]
+        total_fruits_in_basket=temp[4]
 
     if command=="k":
         shovel = 1
     # Set shovel
         g.set(50, 3, ' [ On ]' )
-    return score, shovel, key, treasure
+
+    print('total_fruits',total_fruits)
+    print('total_fruits_in_basket',total_fruits_in_basket, )
+
+
+
+
+    return score, shovel, key, treasure, total_fruits_in_basket
 
 
 # -------------------------------------------------------------STARTING-----------------
@@ -186,16 +213,26 @@ while not command.casefold() in ["q", "x"]:
     command = command.casefold()[:1]
 
     # print("Location X:", player.pos_x , "  Location Y :", player.pos_y )
-    resp=move_player(command, score,shovel,key,treasure)
+    resp=move_player(command, score,shovel,key,treasure, total_fruits_in_basket )
     score =resp[0]
     shovel =resp[1]
     key =resp[2]
     treasure =resp[3]
+    total_fruits_in_basket = resp[4]
+
+    # g.set(37, 8, f"* Total fruits found:{total_fruits_in_basket}  ****")
 
     steps +=1
-    if steps == 25:
+    if steps == 25 and total_fruits_in_basket != 'exit':
         pickups.new_fruit(g)
         steps = 0
+        total_fruits += 1
+    elif total_fruits_in_basket == 'exit':
+        print ('Exit NOW !')
+        g.set(37, 9, f" * You Won the game  **")
+
+
+        break
 
 
 # Hit kommer vi när while-loopen slutar
