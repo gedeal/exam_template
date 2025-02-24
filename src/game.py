@@ -44,6 +44,10 @@ pickups.randomtrap(g)
 pickups.randomkey(g)
 pickups.randomtreasure(g)
 
+g.set(50, 3, ' [ Off ]')  # Start with no keys
+g.set(50, 6, 0)  # clear Key
+g.set(50, 7, 0)  # clear points
+
 
 
 # TODO: flytta denna till en annan fil ???
@@ -52,15 +56,10 @@ def move_point(score, xi, yi, shovel, key,treasure):
     maybe_item = g.get(player.pos_x + xi, player.pos_y+yi)
 
     if shovel==1:
-        print("********************************************")
-        print("*        Shovel at hand ;-)                *")
-        print("********************************************")
+        g.set(50, 3, ' [ On ]' )
 
     if maybe_item == internwall:
         if shovel==0:
-            # print("********************************************")
-            # print(f"*   Can't move - there's an intern wall {internwall}  *")
-            # print("********************************************")
             g.set(37, 9, f" * Can't move - there's an intern wall {internwall} ")
             player.move(0,0)
         else:
@@ -68,40 +67,31 @@ def move_point(score, xi, yi, shovel, key,treasure):
             player.move(xi, yi)
             g.set(player.pos_x, player.pos_y, g.empty)
             shovel=0
-            print("********************************************")
-            print("*              Shovel removed :-(          *")
-            print("********************************************")
+            g.set(50, 3, ' [ Off ]')
 
     elif maybe_item == wall:
-        # print("********************************************")
-        # print(f"*   Can't move - there's an extern wall {wall}  *")
-        # print("********************************************")
-        g.set(37, 9, f" * Can't move - there's an extern wall {wall} ")
-
+    # Can no move - extern wall
+        g.set(37, 9, f" * Can't move - there's an extern wall {wall} **")
         player.move(0, 0)
 
     elif maybe_item == trap_a:
         # I) Fällor - introducera valfri fälla till spelplanen. Om man går på en ruta med en fälla ska man förlora 10 poäng.
         #    Fällan ska ligga kvar så att man kan falla i den flera gånger.
         score = score - 10
-        print("********************************************")
-        print("*   You found a trap, You lost 10 points   *")
-        print("********************************************")
+        g.set(37, 9, f" * You found a trap, You lost 10 points  **")
         player.move(xi, yi)
         g.set(player.pos_x, player.pos_y, g.empty)
         shovel = 0
 
         # Create a new trap
-        pickups.randomtrap(g)
-        # TODO - change place of the trap
+        pickups.randomtrap(g)   #- change trap place
 
 
     elif maybe_item == keyicon:     # found a key
-        print("********************************************")
-        print("*  You found a key :-)                     *")
-        print("********************************************")
+        g.set(37, 9, f" * You found a key :-)  **")
         player.move(xi, yi)
         key +=1
+        g.set(50, 6, key)
         # erase key and save info
         g.set(player.pos_x, player.pos_y, g.empty)
 
@@ -109,23 +99,17 @@ def move_point(score, xi, yi, shovel, key,treasure):
         player.move(xi, yi)
 
         if key >0 :
-            print("********************************************")
-            print("* You found a treasure :-)  +100 points    *")
-
+            g.set(37, 9, f" * You found a treasure :-)  +100 points  **")
+            g.clear(player.pos_x, player.pos_y)
             # erase treasure  and save info
             treasure += 1
             score +=100
             key -=1
-            if key > 0:
-                print('* Nr Keys :', key,"                         *")
-            else:
-                print("*  You have no more keys  :-(              *")
-            print("********************************************")
-            g.clear(player.pos_x, player.pos_y)
+            if key == 0:
+                g.set(37, 9, f" * You have no more keys  :-(  **")
+            g.set(50, 6, key)
         else:
-            print("********************************************")
-            print("*  You have no keys for this treasure :-(  *")
-            print("********************************************")
+            g.set(37, 9, f" * You have no keys for this treasure :-(  **")
 
     else:
         # print("OK", maybe_item)
@@ -135,19 +119,21 @@ def move_point(score, xi, yi, shovel, key,treasure):
         if isinstance(maybe_item, pickups.Item):
             # we found something
             score += maybe_item.value
-            print("********************************************")
-            print(f"*  You found a {maybe_item.name}, +{maybe_item.value} points.     *")
-            print("********************************************")
+      # Found fruit
+            g.set(37, 9, f"* You found a {maybe_item.name}, +{maybe_item.value} points.  ;-) ****")
             #g.set(player.pos_x, player.pos_y, g.empty)
             g.clear(player.pos_x, player.pos_y)
             inventory(fruit_list, maybe_item.name, player.pos_x, player.pos_y,key,treasure)
 
+
+    g.set(50, 7, score)   # show points
     return score,shovel, key, treasure
 
 def move_player (command, score, shovel, key, treasure ):
     xi = 0
     yi = 0
     g.set(37, 9, f"")
+
 
     if command=="u":
         show_score(score,key)
@@ -179,15 +165,15 @@ def move_player (command, score, shovel, key, treasure ):
 
     if command=="k":
         shovel = 1
-        print("********************************************")
-        print("*        Shovel at hand ;-)                *")
-        print("********************************************")
-    return score,shovel,key,treasure
+    # Set shovel
+        g.set(50, 3, ' [ On ]' )
+    return score, shovel, key, treasure
+
 
 # -------------------------------------------------------------STARTING-----------------
 command = ""
 # Loopa tills användaren trycker Q eller X.
-print("\n꧁∙·▫ₒₒ▫꧁   Fruit basket for the brave  ꧂▫ₒₒ▫·∙꧂\n")
+print("\n꧁∙·▫ₒₒ▫ᵒᴼᵒ▫ₒₒ▫꧁      Fruit basket for the brave      ꧂▫ₒₒ▫ᵒᴼᵒ▫ₒₒ▫·∙꧂\n")
 # print("\t=>  Use 'i' to show your fruit basket")
 # print("\t=>  Use 'u' to show your points ")
 
@@ -205,9 +191,5 @@ while not command.casefold() in ["q", "x"]:
     key =resp[2]
     treasure =resp[3]
 
-    # print ("\t\t\tScore:",score)
-    # print ("\t\t\tshovel:",shovel)
-
 # Hit kommer vi när while-loopen slutar
-# print("\t _/\\_  Thank you for playing! _/\\_  \n")
 print("\n꧁∙·▫ₒₒ▫꧁   Thank you for playing!  ꧂▫ₒₒ▫·∙꧂\n")

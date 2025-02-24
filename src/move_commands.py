@@ -1,4 +1,4 @@
-
+# from src.game import g
 
 def show_score(score,key):           # Show score now
     # print("Your score is : ", score)
@@ -9,6 +9,10 @@ def show_score(score,key):           # Show score now
     else:
         print(f"* Nr of keys you have: {key}              ")
     print("********************************************")
+
+
+    # g.set(37, 9, f" * score qis: {score} points")
+    # g.set(37, 10,f" * keys you have: {key}")
 
 
 def inventory(fruit_list, fruit, pos_x,pos_y,key, treasure):
@@ -23,11 +27,13 @@ def showlist(fruit_list):
     mylist=len(fruit_list)
     # print(mylist)
     if mylist==0:
-        print("********************************************")
+        print("***********************************")
         print("* You have not collect fruits yet  :-(     *")
-        print("********************************************")
+        print("***********************************")
     else:
-        print(f"** Fruit basket ({mylist}) **")
+        print("***********************************")
+        print(f"** Fruit basket ({mylist}) ***************")
+        print("***********************************")
         for lista in fruit_list:
             item = fruit_list.index(lista)+1
             print(f"   [{item}]  {lista[0]} ")
