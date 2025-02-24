@@ -19,6 +19,7 @@ fruit_list = []
 shovel = 0
 key = 0
 treasure = 0
+steps = 0
 
 # TODO - Icons --------------------
 trap_a = "\x1b[41mA\x1b[0m"
@@ -180,7 +181,7 @@ print("\n꧁∙·▫ₒₒ▫ᵒᴼᵒ▫ₒₒ▫꧁      Fruit basket for the 
 while not command.casefold() in ["q", "x"]:
     print_status(g)
 
-    # command = input("Use WASD to move, Q/X to quit. ")
+    # command = input("** Use WASD to move, Q/X to quit. ")
     command = input("----------------------------------->> ")
     command = command.casefold()[:1]
 
@@ -190,6 +191,12 @@ while not command.casefold() in ["q", "x"]:
     shovel =resp[1]
     key =resp[2]
     treasure =resp[3]
+
+    steps +=1
+    if steps == 25:
+        pickups.new_fruit(g)
+        steps = 0
+
 
 # Hit kommer vi när while-loopen slutar
 print("\n꧁∙·▫ₒₒ▫꧁   Thank you for playing!  ꧂▫ₒₒ▫·∙꧂\n")
