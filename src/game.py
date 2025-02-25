@@ -189,11 +189,8 @@ def move_player (command, score, shovel, key, treasure,total_fruits_in_basket):
     # Set shovel
         g.set(50, 3, ' [ On ]' )
 
-    print('total_fruits',total_fruits)
-    print('total_fruits_in_basket',total_fruits_in_basket, )
-
-
-
+    # print('total_fruits',total_fruits)
+    # print('total_fruits_in_basket',total_fruits_in_basket, )
 
     return score, shovel, key, treasure, total_fruits_in_basket
 
