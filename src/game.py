@@ -20,7 +20,7 @@ shovel = 0
 key = 0
 treasure = 0
 steps = 0
-total_fruits=8  # Total fruits in the grid
+total_fruits=2   #gerson         # Total fruits in the grid
 total_fruits_in_basket=0  # total fruits collected
 
 
@@ -87,6 +87,7 @@ def move_point(score, xi, yi, shovel, key, treasure,total_fruits_in_basket):
         player.move(0, 0)
 
     elif maybe_item == exit_door and total_fruits == total_fruits_in_basket:
+# M) Exit - slumpa ett "E" på kartan. När man har plockat upp alla ursprungliga saker, kan man gå till exit
             player.move(xi, yi)    # TODO - this does not work  !!
             g.set(player.pos_x, player.pos_y, victory)
             # time.sleep(1)
@@ -189,8 +190,8 @@ def move_player (command, score, shovel, key, treasure,total_fruits_in_basket):
     # Set shovel
         g.set(50, 3, ' [ On ]' )
 
-    # print('total_fruits',total_fruits)
-    # print('total_fruits_in_basket',total_fruits_in_basket, )
+    print('total_fruits',total_fruits)
+    print('total_fruits_in_basket',total_fruits_in_basket, )
 
     return score, shovel, key, treasure, total_fruits_in_basket
 
@@ -209,7 +210,6 @@ while not command.casefold() in ["q", "x"]:
     command = input("                                   >> ")
     command = command.casefold()[:1]
 
-    # print("Location X:", player.pos_x , "  Location Y :", player.pos_y )
     resp=move_player(command, score,shovel,key,treasure, total_fruits_in_basket )
     score =resp[0]
     shovel =resp[1]
@@ -217,15 +217,16 @@ while not command.casefold() in ["q", "x"]:
     treasure =resp[3]
     total_fruits_in_basket = resp[4]
 
-    g.set(37, 8, f"* Total fruits found:{total_fruits_in_basket}  ****")
+    g.set(52, 4, f" = {total_fruits_in_basket}")
 
     steps +=1
-    if steps == 25 and total_fruits_in_basket != 'exit':
+    if steps == 125 and total_fruits_in_basket != 'exit':   #gerson
         pickups.new_fruit(g)
         steps = 0
         total_fruits += 1
 
     if total_fruits_in_basket == 'exit':
+        showlist(fruit_list)
         break
 
 # Hit kommer vi när while-loopen slutar
