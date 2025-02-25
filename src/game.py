@@ -20,7 +20,7 @@ shovel = 0
 key = 0
 treasure = 0
 steps = 0
-total_fruits=2  # Total fruits in the grid
+total_fruits=8  # Total fruits in the grid
 total_fruits_in_basket=0  # total fruits collected
 
 
@@ -33,6 +33,7 @@ wall = "\x1b[45m■\x1b[0m"
 treasuricon = "\x1b[91mT\x1b[0m"
 keyicon = "\x1b[94mK\x1b[0m"
 exit_door = "\x1b[42mE\x1b[0m"
+victory = "\x1b[92m*\x1b[0m"
 
 
 
@@ -85,6 +86,12 @@ def move_point(score, xi, yi, shovel, key, treasure,total_fruits_in_basket):
         g.set(37, 9, f" * Can't move - there's an extern wall {wall} **")
         player.move(0, 0)
 
+    elif maybe_item == exit_door and total_fruits == total_fruits_in_basket:
+            player.move(xi, yi)    # TODO - this does not work  !!
+            g.set(player.pos_x, player.pos_y, victory)
+            # time.sleep(1)
+            total_fruits_in_basket = 'exit'
+
     elif maybe_item == trap_a:
         # I) Fällor - introducera valfri fälla till spelplanen. Om man går på en ruta med en fälla ska man förlora 10 poäng.
         #    Fällan ska ligga kvar så att man kan falla i den flera gånger.
@@ -96,7 +103,6 @@ def move_point(score, xi, yi, shovel, key, treasure,total_fruits_in_basket):
 
         # Create a new trap
         pickups.randomtrap(g)   #- change trap place
-
 
     elif maybe_item == keyicon:     # found a key
         g.set(37, 9, f" * You found a key :-)  **")
@@ -122,17 +128,12 @@ def move_point(score, xi, yi, shovel, key, treasure,total_fruits_in_basket):
         else:
             g.set(37, 9, f" * You have no keys for this treasure :-(  **")
 
-    elif maybe_item == exit_door and  total_fruits == total_fruits_in_basket:
-            total_fruits_in_basket = 'exit'
-
     else:
         # print("OK", maybe_item)
         player.move(xi, yi)
         # G) The floor is lava - för varje steg man går ska man tappa 1 poäng.
         score = score-1
-        # if total_fruits_in_basket == 'exit':
-        #     var = None
-        # elif isinstance(maybe_item, pickups.Item):
+
         if isinstance(maybe_item, pickups.Item):
             # we found something
             score += maybe_item.value
@@ -152,7 +153,6 @@ def move_point(score, xi, yi, shovel, key, treasure,total_fruits_in_basket):
 def move_player (command, score, shovel, key, treasure,total_fruits_in_basket):
     xi = 0
     yi = 0
-    # g.set(38, 12, "--------------------------------------------")
 
     # if command=="u":
     #     show_score(score,key)
@@ -206,7 +206,7 @@ while not command.casefold() in ["q", "x"]:
     print_status(g)
 
     # command = input("** Use WASD to move, Q/X to quit. ")
-    command = input("----------------------------------->> ")
+    command = input("                                   >> ")
     command = command.casefold()[:1]
 
     # print("Location X:", player.pos_x , "  Location Y :", player.pos_y )
@@ -217,21 +217,17 @@ while not command.casefold() in ["q", "x"]:
     treasure =resp[3]
     total_fruits_in_basket = resp[4]
 
-    # g.set(37, 8, f"* Total fruits found:{total_fruits_in_basket}  ****")
+    g.set(37, 8, f"* Total fruits found:{total_fruits_in_basket}  ****")
 
     steps +=1
     if steps == 25 and total_fruits_in_basket != 'exit':
         pickups.new_fruit(g)
         steps = 0
         total_fruits += 1
-    elif total_fruits_in_basket == 'exit':
-        print ('Exit NOW !')
-        g.set(37, 9, f" * You Won the game  **")
 
-
+    if total_fruits_in_basket == 'exit':
         break
 
-
 # Hit kommer vi när while-loopen slutar
-
-print("\n꧁∙·▫ₒₒ▫꧁   Thank you for playing!  ꧂▫ₒₒ▫·∙꧂\n")
+print(f"\t꧁∙·▫ₒₒ▫꧁      You won the game     ꧂▫ₒₒ▫·∙꧂")
+print(f"\t꧁∙·▫ₒₒ▫꧁   Thank you for playing!  ꧂▫ₒₒ▫·∙꧂\n")
