@@ -1,12 +1,21 @@
+# from src.game import g
+
+def show_score(score,key):           # Show score now
+    # print("Your score is : ", score)
+    print("********************************************")
+    print(f"* Your total score is: {score} points     ")
+    if key ==0:
+        print("* You have no key                          *")
+    else:
+        print(f"* Nr of keys you have: {key}              ")
+    print("********************************************")
 
 
-def show_score(score):           # Show score now
-    # print('Your score is : ', score)
-    print(f"** Your total score is: \n**      {score} points.")
+    # g.set(37, 9, f" * score qis: {score} points")
+    # g.set(37, 10,f" * keys you have: {key}")
 
 
-
-def inventory(fruit_list, fruit, pos_x,pos_y):
+def inventory(fruit_list, fruit, pos_x,pos_y,key, treasure):
 # - E) Inventory - alla saker som man plockar upp ska sparas i en lista.
     fruit =[fruit, pos_x,pos_y]
     fruit_list.append(fruit)
@@ -18,9 +27,13 @@ def showlist(fruit_list):
     mylist=len(fruit_list)
     # print(mylist)
     if mylist==0:
-        print("  ** You have not collect fruits yet  :-(")
+        print("***********************************")
+        print("* You have not collect fruits yet  :-(     *")
+        print("***********************************")
     else:
-        print(f"** Fruit basket ({mylist}) **")
+        print("***********************************")
+        print(f"** Fruit basket ({mylist}) ***************")
+        print("***********************************")
         for lista in fruit_list:
             item = fruit_list.index(lista)+1
             print(f"   [{item}]  {lista[0]} ")
