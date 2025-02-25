@@ -233,4 +233,5 @@ while not command.casefold() in ["q", "x"]:
 
 
 # Hit kommer vi när while-loopen slutar
+
 print("\n꧁∙·▫ₒₒ▫꧁   Thank you for playing!  ꧂▫ₒₒ▫·∙꧂\n")
