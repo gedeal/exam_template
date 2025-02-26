@@ -190,8 +190,8 @@ def move_player (command, score, shovel, key, treasure,total_fruits_in_basket):
     # Set shovel
         g.set(50, 3, ' [ On ]' )
 
-    print('total_fruits',total_fruits)
-    print('total_fruits_in_basket',total_fruits_in_basket, )
+
+
 
     return score, shovel, key, treasure, total_fruits_in_basket
 
@@ -216,6 +216,7 @@ while not command.casefold() in ["q", "x"]:
     key =resp[2]
     treasure =resp[3]
     total_fruits_in_basket = resp[4]
+
 
     g.set(52, 4, f" = {total_fruits_in_basket}")
 
