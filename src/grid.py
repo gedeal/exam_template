@@ -111,3 +111,4 @@ class Grid:
         for i in range(3):
             self.set(i+ 10, 8, self.internwall)
             # self.set(self.width - 1, i, self.internwall)
+

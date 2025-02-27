@@ -93,7 +93,7 @@ Vill du utmana dig själv ytterligare kan du prova någon av de teknikerna.
 - Lägg till en "run configuration" för projektet så kan du testköra det enklare. Så här ser det ut i PyCharm:
 
 
-<img src="\images\tips.png" width="300"/>
+<img src="\images\tips.png" width="500"/>
 
 ---
 

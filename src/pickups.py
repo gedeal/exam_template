@@ -51,6 +51,7 @@ def new_fruit(grid):
             break  # avbryt while-loopen, fortsätt med nästa varv i for-loopen
     return None
 
+
 def exit_game(grid):
     while True:
         x = grid.get_random_x()
@@ -71,14 +72,6 @@ def randomtrap(grid):
         if grid.is_empty(x, y):
             grid.set(x, y, trap_a)
             break  # avbryt while-loopen, fortsätt med nästa varv i for-loopen
-
-    # while True:
-    #     # slumpa en position tills vi hittar en som är ledig
-    #     x = grid.get_random_x()
-    #     y = grid.get_random_y()
-    #     if grid.is_empty(x, y):
-    #         grid.set(x, y, trap_b)
-    #         break  # avbryt while-loopen, fortsätt med nästa varv i for-loopen
 
     return None
 
