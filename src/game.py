@@ -20,9 +20,9 @@ shovel = 0
 key = 0
 treasure = 0
 steps = 0
-total_fruits=2   #gerson         # Total fruits in the grid
-total_fruits_in_basket=0  # total fruits collected
-
+total_fruits=2    # Total fruits in the grid
+total_fruits_in_basket=0  # total fruits collected in the basket
+exit_found = 'noexit2'
 
 # TODO - Icons --------------------
 trap_a = "\x1b[41mA\x1b[0m"
@@ -59,11 +59,9 @@ g.set(50, 6, 0)  # clear Key
 g.set(50, 7, 0)  # clear points
 
 
-
 # TODO: flytta denna till en annan fil ???
 
-def move_point(score, xi, yi, shovel, key, treasure,total_fruits_in_basket):
-    # global total_fruits
+def move_point(score, xi, yi, shovel, key, treasure, total_fruits_in_basket,exit_found):
 
     maybe_item = g.get(player.pos_x + xi, player.pos_y+yi)
 
@@ -86,12 +84,6 @@ def move_point(score, xi, yi, shovel, key, treasure,total_fruits_in_basket):
         g.set(37, 9, f" * Can't move - there's an extern wall {wall} **")
         player.move(0, 0)
 
-    elif maybe_item == exit_door and total_fruits == total_fruits_in_basket:
-# M) Exit - slumpa ett "E" på kartan. När man har plockat upp alla ursprungliga saker, kan man gå till exit
-            player.move(xi, yi)    # TODO - this does not work  !!
-            g.set(player.pos_x, player.pos_y, victory)
-            # time.sleep(1)
-            total_fruits_in_basket = 'exit'
 
     elif maybe_item == trap_a:
         # I) Fällor - introducera valfri fälla till spelplanen. Om man går på en ruta med en fälla ska man förlora 10 poäng.
@@ -147,11 +139,22 @@ def move_point(score, xi, yi, shovel, key, treasure,total_fruits_in_basket):
             total_fruits_in_basket += 1
 
     g.set(50, 7, score)   # show points
-    return score,shovel, key, treasure, total_fruits_in_basket
+
+    # M) Exit - slumpa ett "E" på kartan. När man har plockat upp alla ursprungliga saker, kan man gå till exit
+    if total_fruits == total_fruits_in_basket:
+        exit_found ='exit_prel'
+        g.set(37, 9, f"* You can exit now   ;-) ****")
+
+    if maybe_item == exit_door and exit_found == 'exit_prel':
+        exit_found='canfinish'
+
+
+    return score,shovel, key, treasure, total_fruits_in_basket,exit_found
 
 
 
-def move_player (command, score, shovel, key, treasure,total_fruits_in_basket):
+def move_player (command, score, shovel, key, treasure,total_fruits_in_basket,exit_found):
+
     xi = 0
     yi = 0
 
@@ -166,24 +169,28 @@ def move_player (command, score, shovel, key, treasure,total_fruits_in_basket):
             xi= -1
         else:
             xi= 1
-        temp=move_point(score,xi,yi,shovel,key,treasure,total_fruits_in_basket)
+        temp=move_point(score,xi,yi,shovel,key,treasure,total_fruits_in_basket,exit_found)
         score=temp[0]
         shovel=temp[1]
         key=temp[2]
         treasure=temp[3]
         total_fruits_in_basket = temp[4]
+        exit_found=temp[5]
+
 
     if command=="w" or command=="s":
         if command=="w":
             yi= -1
         else:
             yi= 1
-        temp=move_point(score,xi,yi,shovel,key,treasure,total_fruits_in_basket)
+        temp=move_point(score,xi,yi,shovel,key,treasure,total_fruits_in_basket,exit_found)
         score = temp[0]
         shovel = temp[1]
         key = temp[2]
         treasure = temp[3]
         total_fruits_in_basket=temp[4]
+        exit_found=temp[5]
+
 
     if command=="k":
         shovel = 1
@@ -191,9 +198,7 @@ def move_player (command, score, shovel, key, treasure,total_fruits_in_basket):
         g.set(50, 3, ' [ On ]' )
 
 
-
-
-    return score, shovel, key, treasure, total_fruits_in_basket
+    return score,shovel, key, treasure, total_fruits_in_basket,exit_found
 
 
 # -------------------------------------------------------------STARTING-----------------
@@ -210,26 +215,30 @@ while not command.casefold() in ["q", "x"]:
     command = input("                                   >> ")
     command = command.casefold()[:1]
 
-    resp=move_player(command, score,shovel,key,treasure, total_fruits_in_basket )
+    resp=move_player(command, score,shovel,key,treasure, total_fruits_in_basket,exit_found )
     score =resp[0]
     shovel =resp[1]
     key =resp[2]
     treasure =resp[3]
     total_fruits_in_basket = resp[4]
-
-
+    exit_found = resp[5]
+    # print ('total_fruits: ',total_fruits)
+    # print ('total_Basket:',total_fruits_in_basket)
+    # print('exit_found', exit_found)
     g.set(52, 4, f" = {total_fruits_in_basket}")
 
     steps +=1
-    if steps == 125 and total_fruits_in_basket != 'exit':   #gerson
+    if steps == 25 and exit_found != 'exit_prel':
         pickups.new_fruit(g)
         steps = 0
         total_fruits += 1
 
-    if total_fruits_in_basket == 'exit':
-        showlist(fruit_list)
+    if exit_found == 'canfinish':
         break
 
 # Hit kommer vi när while-loopen slutar
-print(f"\t꧁∙·▫ₒₒ▫꧁      You won the game     ꧂▫ₒₒ▫·∙꧂")
-print(f"\t꧁∙·▫ₒₒ▫꧁   Thank you for playing!  ꧂▫ₒₒ▫·∙꧂\n")
+print(f"\t꧁∙·▫ₒₒ▫꧁  Congratulations - you found the exit door   ꧂▫ₒₒ▫·∙꧂")
+print('\n\tTotal score: ', score)
+showlist(fruit_list)
+time.sleep(1)
+print(f"\t꧁∙·▫ₒₒ▫꧁             Thank you for playing!           ꧂▫ₒₒ▫·∙꧂\n")

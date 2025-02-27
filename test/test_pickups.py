@@ -1,10 +1,8 @@
 # Run only this tests
-# pytest test/test_move_player.py -srA
-import random
-from src import grid
+# pytest test/test_pickups.py -srA
+
 
 from src.grid import Grid
-
 from src.pickups import *
 
 
