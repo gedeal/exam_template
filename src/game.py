@@ -20,9 +20,9 @@ shovel = 0
 key = 0
 treasure = 0
 steps = 0
-total_fruits=2    # Total fruits in the grid
+total_fruits=8    # Total fruits in the grid
 total_fruits_in_basket=0  # total fruits collected in the basket
-exit_found = 'noexit2'
+exit_found = 'noexit'
 
 # TODO - Icons --------------------
 trap_a = "\x1b[41mA\x1b[0m"
