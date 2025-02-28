@@ -10,6 +10,7 @@ class Player:
         """Flyttar spelaren.\n
         dx = horisontell förflyttning, från vänster till höger\n
         dy = vertikal förflyttning, uppifrån och ned"""
+
         self.pos_x += dx
         self.pos_y += dy
 
