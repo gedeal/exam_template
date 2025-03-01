@@ -13,9 +13,6 @@ def show_score(score,key):           # Show score now
     print("********************************************")
     return a
 
-    # g.set(37, 9, f" * score qis: {score} points")
-    # g.set(37, 10,f" * keys you have: {key}")
-
 
 def inventory(fruit_list, fruit, pos_x,pos_y,key, treasure):
 # - E) Inventory - alla saker som man plockar upp ska sparas i en lista.
@@ -48,3 +45,4 @@ def print_status(game_grid):
     # print("\n--------------------------------------")
     print(game_grid)
     # print("\n--------------------------------------")
+
